@@ -26,3 +26,6 @@ go.work.sum
 
 # Testfiles
 testfile*
+
+# xml files used for password storage
+*.xml
