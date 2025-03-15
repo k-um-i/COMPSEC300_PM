@@ -4,10 +4,16 @@ import (
   "crypto/aes"
   "crypto/cipher"
   "crypto/rand"
+  "golang.org/x/crypto/argon2"
   "fmt"
   "io"
   "os"
 )
+
+func DeriveKey(password string) []byte {
+  key := argon2.IDKey([]byte(password), []byte("testsalt"), 1, 64*1024, 4, 32)
+  return key
+}
 
 // Function used for file encryption.
 func EncryptFile(input_path, output_path string, key []byte) error {
@@ -86,14 +92,39 @@ func DecryptFile(input_path, output_path string, key []byte) error {
 
 func main() {
   // ##### TESTING #####
+  /*
   key := make([]byte, 32)
   if _, err := io.ReadFull(rand.Reader, key); err != nil {
     fmt.Println("Failed to generate key:", err)
     return
   }
+  */
 
-  input_path := "./testfile.txt"
-  output_path := "./testfileenc.txt"
+  mode := os.Args[1]
+  password := os.Args[2]
+
+  input_path := os.Args[3]
+  output_path := os.Args[4]
+
+  key := DeriveKey(password)
+
+  var err error
+  if mode == "encrypt" {
+    err = EncryptFile(input_path, output_path, key)
+  } else if mode == "decrypt" {
+    err = DecryptFile(input_path, output_path, key)
+  } else {
+    fmt.Println("Invalid mode, use 'encrypt' or 'decrypt'.")
+  }
+
+  if err != nil {
+    fmt.Println("Operation failed:", err)
+  } else {
+    fmt.Println("Operation successful.")
+  }
+
+
+  /*
   if err := EncryptFile(input_path, output_path, key); err != nil{
     fmt.Println("Encryption failed:", err)
   }
@@ -107,5 +138,6 @@ func main() {
   if err := DecryptFile(input_path, output_path, key); err != nil {
     fmt.Println("Decryption failed:", err)
   }
+  */
 }
 
