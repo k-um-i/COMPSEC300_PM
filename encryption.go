@@ -67,8 +67,8 @@ func DecryptFile(input_path, output_path, password string) error {
     return err
   }
 
-  salt := ciphertext[:4]
-  ciphertext = ciphertext[4:]
+  salt := ciphertext[:16]
+  ciphertext = ciphertext[16:]
 
   key := DeriveKey(password, salt)
 
@@ -94,11 +94,6 @@ func DecryptFile(input_path, output_path, password string) error {
     return err
   }
 
-  // ### TEST Print of plaintext PLEASE REMOVE
-  // ###################
-  // ##### REMOVE ######
-  // ###################
-  fmt.Println(string(plaintext))
   // Write the plaintext to the output file
   if err := os.WriteFile(output_path, plaintext, 0600); err != nil {
     return err
@@ -125,7 +120,7 @@ func main() {
 
   var err error
   if mode == "encrypt" {
-    salt := make([]byte, 4)
+    salt := make([]byte, 16)
     if _, err := io.ReadFull(rand.Reader, salt); err != nil {
       fmt.Println("Error creating salt: ", err)
     }
