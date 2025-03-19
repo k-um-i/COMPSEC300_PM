@@ -10,13 +10,13 @@ import (
   "os"
 )
 
-func DeriveKey(password string) []byte {
-  key := argon2.IDKey([]byte(password), []byte("testsalt"), 1, 64*1024, 4, 32)
+func DeriveKey(password string, salt []byte) []byte {
+  key := argon2.IDKey([]byte(password), salt, 1, 64*1024, 4, 32)
   return key
 }
 
 // Function used for file encryption.
-func EncryptFile(input_path, output_path string, key []byte) error {
+func EncryptFile(input_path, output_path string, key []byte, salt []byte) error {
   // Read and save the contents of the file
   plaintext, err := os.ReadFile(input_path)
   if err != nil {
@@ -45,7 +45,14 @@ func EncryptFile(input_path, output_path string, key []byte) error {
   ciphertext := gcm.Seal(nonce, nonce, plaintext, nil)
 
   // Write to output file
-  if err := os.WriteFile(output_path, ciphertext, 0600); err != nil{
+  if err := os.WriteFile(output_path, salt, 0600); err != nil{
+    return err
+  }
+  f, err := os.OpenFile(output_path, os.O_APPEND|os.O_WRONLY, 0600) 
+  if err != nil {
+    return err
+  }
+  if _, err := f.Write(ciphertext); err != nil {
     return err
   }
 
@@ -53,12 +60,17 @@ func EncryptFile(input_path, output_path string, key []byte) error {
 }
 
 // Function used for file decryption
-func DecryptFile(input_path, output_path string, key []byte) error {
+func DecryptFile(input_path, output_path, password string) error {
   // Read and save the ciphertext from the file
   ciphertext, err := os.ReadFile(input_path)
   if err != nil {
     return err
   }
+
+  salt := ciphertext[:4]
+  ciphertext = ciphertext[4:]
+
+  key := DeriveKey(password, salt)
 
   // Initialize the cipher
   block, err := aes.NewCipher(key)
@@ -82,6 +94,11 @@ func DecryptFile(input_path, output_path string, key []byte) error {
     return err
   }
 
+  // ### TEST Print of plaintext PLEASE REMOVE
+  // ###################
+  // ##### REMOVE ######
+  // ###################
+  fmt.Println(string(plaintext))
   // Write the plaintext to the output file
   if err := os.WriteFile(output_path, plaintext, 0600); err != nil {
     return err
@@ -106,13 +123,16 @@ func main() {
   input_path := os.Args[3]
   output_path := os.Args[4]
 
-  key := DeriveKey(password)
-
   var err error
   if mode == "encrypt" {
-    err = EncryptFile(input_path, output_path, key)
+    salt := make([]byte, 4)
+    if _, err := io.ReadFull(rand.Reader, salt); err != nil {
+      fmt.Println("Error creating salt: ", err)
+    }
+    key := DeriveKey(password, salt)
+    err = EncryptFile(input_path, output_path, key, salt)
   } else if mode == "decrypt" {
-    err = DecryptFile(input_path, output_path, key)
+    err = DecryptFile(input_path, output_path, password)
   } else {
     fmt.Println("Invalid mode, use 'encrypt' or 'decrypt'.")
   }
