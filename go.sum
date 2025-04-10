@@ -1,4 +1,8 @@
+github.com/webui-dev/go-webui/v2 v2.4.3-0.20250131153525-b3e9455187a1 h1:tOS/g/3ca2YKlYskQtY5Z2cCksEZXDSK65Jb9dF6ZUc=
+github.com/webui-dev/go-webui/v2 v2.4.3-0.20250131153525-b3e9455187a1/go.mod h1:wAuoPsuZW60krM633fOFAQFtnRgzFD1dGDRHQd6lfPY=
 golang.org/x/crypto v0.36.0 h1:AnAEvhDddvBdpY+uR+MyHmuZzzNqXSe/GvuDeob5L34=
 golang.org/x/crypto v0.36.0/go.mod h1:Y4J0ReaxCR1IMaabaSMugxJES1EpwhBHhv2bDHklZvc=
 golang.org/x/sys v0.31.0 h1:ioabZlmFYtWhL+TRYpcnNlLwhyxaM9kWTDEmfnprqik=
 golang.org/x/sys v0.31.0/go.mod h1:BJP2sWEmIv4KK5OTEluFJCKSidICx8ciO85XgH3Ak8k=
+golang.org/x/term v0.30.0 h1:PQ39fJZ+mfadBm0y5WlL4vlM7Sx1Hgf13sMIY2+QS9Y=
+golang.org/x/term v0.30.0/go.mod h1:NYYFdzHoI5wRh/h5tDMdMqCqPJZEuNqVR5xJLd/n67g=
