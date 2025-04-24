@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function toggleTheme() {
   const checkbox = document.getElementById("themeToggle");
-  const theme = checkbox.checked ? "newlight.css" : "newdark.css";
+  const theme = checkbox.checked ? "themes/newlight.css" : "themes/newdark.css";
   document.getElementById("theme-style").setAttribute("href", theme);
 }
 
