@@ -13,8 +13,6 @@ import (
 	"syscall"
 )
 
-var DbPass string
-
 func main() {
 	if len(os.Args) < 2 {
 		fmt.Println("Usage: [open|create] <filename>")
@@ -58,7 +56,6 @@ func main() {
 			log.Fatalf("Error decrypting database: %v\n", err)
 		}
 
-		fmt.Println(dbContents)
 		fmt.Println("Database opened successfully.")
 		gui.DbContents = dbContents
 		gui.DbFile = filename

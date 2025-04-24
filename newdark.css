@@ -2,8 +2,8 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #121212;
-  color: #ffffff;
+  background-color: #233142;
+  color: #e3e3e3;
 }
 
 .container {
@@ -12,7 +12,7 @@ body {
 
 h1 {
   text-align: center;
-  color: #c46b6b;
+  color: #f95959;
 }
 
 h2 {
@@ -31,9 +31,9 @@ input[type="file"] {
   width: 80%;
   padding: 8px;
   margin: 0 0 10px 0;
-  border: 1px solid #ccc;
+  border: 1px solid #e3e3e3;
   border-radius: 4px;
-  background-color: #333;
+  background-color: #455d7a;
   color: white;
   box-sizing: border-box;
   display: block;
@@ -41,7 +41,7 @@ input[type="file"] {
 
 button {
   padding: 10px 15px;
-  background-color: #c46b6b;
+  background-color: #f95959;
   margin: 10px 0 0 0;
   border: none;
   color: white;
@@ -80,7 +80,7 @@ button:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #e3e3e3;
   transition: 0.4s;
   border-radius: 24px;
 }
@@ -92,7 +92,7 @@ button:hover {
   width: 18px;
   left: 3px;
   bottom: 3px;
-  background-color: #c46b6b;
+  background-color: #f95959;
   transition: 0.4s;
   border-radius: 50%;
 }
@@ -104,7 +104,7 @@ input:checked + .slider:before {
 details {
   margin-bottom: 10px;
   padding: 10px;
-  background-color: #333;
+  background-color: #455d7a;
   border-radius: 5px;
 }
 
@@ -113,7 +113,7 @@ summary {
 }
 
 a {
-  color: #c46b6b;
+  color: #f95959;
 }
 
 .hidden {
@@ -131,4 +131,34 @@ a {
   transition:
     opacity 0.5s ease,
     max-height 0.5s ease;
+}
+
+.input-with-button {
+  position: relative;
+  width: 80%;
+}
+
+.input-with-button input {
+  width: 100%;
+  padding-right: 2.5rem;
+  box-sizing: border-box;
+}
+
+.generate-btn {
+  all: unset;
+  position: absolute;
+  right: 0.3rem;
+  height: 70%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  opacity: 0.6;
+  border-radius: 5px;
+}
+
+.generate-btn:hover {
+  opacity: 1;
 }

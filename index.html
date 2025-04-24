@@ -30,7 +30,37 @@
           <input type="text" id="newTitle" placeholder="Title" />
           <input type="text" id="newUsername" placeholder="Username" />
           <input type="email" id="newEmail" placeholder="Email" />
-          <input type="password" id="newPassword" placeholder="Password" />
+          <div class="input-with-button">
+            <input
+              type="text"
+              id="newPassword"
+              placeholder="Password"
+              oninput="checkPasswordStrength('')"
+            />
+            <button
+              type="button"
+              class="generate-btn"
+              onclick="generatePassword()"
+              title="Generate Password"
+            >
+              Generate
+            </button>
+          </div>
+          <div
+            id="passwordStrengthBar"
+            style="
+              height: 5px;
+              width: 80%;
+              background-color: #e0e0e0;
+              margin-top: 5px;
+              margin-bottom: 5px;
+            "
+          >
+            <div
+              id="strengthIndicator"
+              style="height: 100%; width: 0%; background-color: red"
+            ></div>
+          </div>
           <input type="url" id="newURL" placeholder="URL" />
           <input type="text" id="newNotes" placeholder="Notes" />
           <button onclick="addEntry()">Add Entry</button>
@@ -64,6 +94,30 @@
         const checkbox = document.getElementById("themeToggle");
         const theme = checkbox.checked ? "newlight.css" : "newdark.css";
         document.getElementById("theme-style").setAttribute("href", theme);
+      }
+
+      function strengthColor(strengthIndicator) {
+        let strength = strengthIndicator;
+      }
+
+      async function checkPasswordStrength(password) {
+        strengthIndicator = document.getElementById("strengthIndicator");
+        if (password === "") {
+          password = document.getElementById("newPassword").value;
+        }
+        strength = await passStrn(password);
+        console.log(strength);
+
+        strengthWidth = (strength / 150) * 100;
+        if (strengthWidth > 100) {
+          strengthWidth = 100;
+        }
+
+        const hue = strengthWidth * 1.2;
+        const color = `hsl(${hue}, 100%, 45%)`;
+
+        strengthIndicator.style.width = strengthWidth + "%";
+        strengthIndicator.style.backgroundColor = color;
       }
 
       async function toggleDatabase() {
@@ -201,6 +255,9 @@
         document.getElementById("newPassword").value = "";
         document.getElementById("newURL").value = "";
         document.getElementById("newNotes").value = "";
+        document.getElementById("strengthIndicator").style.width = "0%";
+        document.getElementById("strengthIndicator").style.backgroundColor =
+          red;
       }
 
       function renderEntries(entries) {
@@ -237,6 +294,12 @@
           entry.Title.toLowerCase().includes(query),
         );
         renderEntries(filtered);
+      }
+
+      async function generatePassword() {
+        let password = await genPass();
+        await checkPasswordStrength(password);
+        document.getElementById("newPassword").value = password.slice(1, -1);
       }
     </script>
   </body>

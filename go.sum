@@ -1,3 +1,5 @@
+github.com/wagslane/go-password-validator v0.3.0 h1:vfxOPzGHkz5S146HDpavl0cw1DSVP061Ry2PX0/ON6I=
+github.com/wagslane/go-password-validator v0.3.0/go.mod h1:TI1XJ6T5fRdRnHqHt14pvy1tNVnrwe7m3/f1f2fDphQ=
 github.com/webui-dev/go-webui/v2 v2.4.3-0.20250131153525-b3e9455187a1 h1:tOS/g/3ca2YKlYskQtY5Z2cCksEZXDSK65Jb9dF6ZUc=
 github.com/webui-dev/go-webui/v2 v2.4.3-0.20250131153525-b3e9455187a1/go.mod h1:wAuoPsuZW60krM633fOFAQFtnRgzFD1dGDRHQd6lfPY=
 golang.org/x/crypto v0.36.0 h1:AnAEvhDddvBdpY+uR+MyHmuZzzNqXSe/GvuDeob5L34=

@@ -5,6 +5,7 @@ import (
 	"crypto/cipher"
 	"crypto/rand"
 	"io"
+	"math/big"
 	"os"
 
 	"golang.org/x/crypto/argon2"
@@ -87,4 +88,49 @@ func UpdateDatabase(contents, password, dbFile string) error {
 	}
 
 	return nil
+}
+
+func GenerateSecurePassword(length int) (string, error) {
+	lower := "abcdefghijklmnopqrstuvwxyz"
+	upper := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	digits := "0123456789"
+	special := "!@#$%^*()-_=+[]{}?/|"
+	all := lower + upper + digits + special
+	categories := []string{lower, upper, digits, special}
+	password := make([]byte, length)
+
+	for i, cat := range categories {
+		char, err := randomCharFromSet(cat)
+		if err != nil {
+			return "", err
+		}
+		password[i] = char
+	}
+	for i := 4; i < length; i++ {
+		char, err := randomCharFromSet(all)
+		if err != nil {
+			return "", err
+		}
+		password[i] = char
+	}
+
+	shuffle(password)
+
+	return string(password), nil
+}
+
+func randomCharFromSet(set string) (byte, error) {
+	num, err := rand.Int(rand.Reader, big.NewInt(int64(len(set))))
+	if err != nil {
+		return 0, err
+	}
+	return set[num.Int64()], nil
+}
+
+func shuffle(data []byte) {
+	for i := range data {
+		jBig, _ := rand.Int(rand.Reader, big.NewInt(int64(len(data))))
+		j := int(jBig.Int64())
+		data[i], data[j] = data[j], data[i]
+	}
 }
