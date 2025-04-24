@@ -10,11 +10,12 @@ function toggleTheme() {
 
 async function checkPasswordStrength(password) {
   strengthIndicator = document.getElementById("strengthIndicator");
+  strengthLabel = document.getElementById("passwordStrengthLabel");
+
   if (password === "") {
     password = document.getElementById("newPassword").value;
   }
   strength = await passStrn(password);
-  console.log(strength);
 
   strengthWidth = (strength / 150) * 100;
   if (strengthWidth > 100) {
@@ -23,9 +24,11 @@ async function checkPasswordStrength(password) {
 
   const hue = strengthWidth * 1.2;
   const color = `hsl(${hue}, 100%, 45%)`;
+  const formattedStrength = parseFloat(strength).toFixed(3);
 
   strengthIndicator.style.width = strengthWidth + "%";
   strengthIndicator.style.backgroundColor = color;
+  strengthLabel.textContent = `Password Entropy: ${formattedStrength}`;
 }
 
 async function toggleDatabase() {

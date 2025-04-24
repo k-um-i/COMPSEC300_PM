@@ -31,21 +31,12 @@
           <input type="text" id="newTitle" placeholder="Title" />
           <input type="text" id="newUsername" placeholder="Username" />
           <input type="email" id="newEmail" placeholder="Email" />
-          <div class="input-with-button">
-            <input
-              type="text"
-              id="newPassword"
-              placeholder="Password"
-              oninput="checkPasswordStrength('')"
-            />
-            <button
-              type="button"
-              class="generate-btn"
-              onclick="generatePassword()"
-              title="Generate Password"
-            >
-              Generate
-            </button>
+
+          <div
+            id="passwordStrengthLabel"
+            style="font-size: 0.9em; margin-top: 5px"
+          >
+            Password Entropy:
           </div>
           <div
             id="passwordStrengthBar"
@@ -62,6 +53,24 @@
               style="height: 100%; width: 0%; background-color: red"
             ></div>
           </div>
+
+          <div class="input-with-button">
+            <input
+              type="text"
+              id="newPassword"
+              placeholder="Password"
+              oninput="checkPasswordStrength('')"
+            />
+            <button
+              type="button"
+              class="generate-btn"
+              onclick="generatePassword()"
+              title="Generate Password"
+            >
+              Generate
+            </button>
+          </div>
+
           <input type="url" id="newURL" placeholder="URL" />
           <input type="text" id="newNotes" placeholder="Notes" />
           <button onclick="addEntry()">Add Entry</button>
