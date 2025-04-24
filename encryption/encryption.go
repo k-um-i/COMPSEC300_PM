@@ -90,24 +90,11 @@ func UpdateDatabase(contents, password, dbFile string) error {
 	return nil
 }
 
-func GenerateSecurePassword(length int) (string, error) {
-	lower := "abcdefghijklmnopqrstuvwxyz"
-	upper := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	digits := "0123456789"
-	special := "!@#$%^*()-_=+[]{}?/|"
-	all := lower + upper + digits + special
-	categories := []string{lower, upper, digits, special}
+func GenerateSecurePassword(length int, charset string) (string, error) {
 	password := make([]byte, length)
 
-	for i, cat := range categories {
-		char, err := randomCharFromSet(cat)
-		if err != nil {
-			return "", err
-		}
-		password[i] = char
-	}
-	for i := 4; i < length; i++ {
-		char, err := randomCharFromSet(all)
+	for i := 0; i < length; i++ {
+		char, err := randomCharFromSet(charset)
 		if err != nil {
 			return "", err
 		}

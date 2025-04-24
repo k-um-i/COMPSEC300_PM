@@ -2,6 +2,15 @@ let dbOpen = false;
 let allEntries = [];
 let firstRun = true;
 
+document.addEventListener("DOMContentLoaded", function () {
+  const toggleButtons = document.querySelectorAll(".toggle-btn");
+  toggleButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      btn.classList.toggle("active");
+    });
+  });
+});
+
 function toggleTheme() {
   const checkbox = document.getElementById("themeToggle");
   const theme = checkbox.checked ? "newlight.css" : "newdark.css";
@@ -17,7 +26,7 @@ async function checkPasswordStrength(password) {
   }
   strength = await passStrn(password);
 
-  strengthWidth = (strength / 150) * 100;
+  strengthWidth = (strength / 200) * 100;
   if (strengthWidth > 100) {
     strengthWidth = 100;
   }
@@ -167,7 +176,8 @@ function addEntry() {
   document.getElementById("newURL").value = "";
   document.getElementById("newNotes").value = "";
   document.getElementById("strengthIndicator").style.width = "0%";
-  document.getElementById("strengthIndicator").style.backgroundColor = red;
+  document.getElementById("passwordStrengthLabel").textContent =
+    "Password Entropy: 0";
 }
 
 function renderEntries(entries) {
@@ -205,7 +215,34 @@ function filterEntries() {
 }
 
 async function generatePassword() {
-  let password = await genPass();
+  const length = parseInt(document.getElementById("passwordLength").value);
+  const activeSets = document.querySelectorAll(".toggle-btn.active");
+  let charset = "";
+
+  activeSets.forEach((btn) => {
+    switch (btn.dataset.set) {
+      case "uppercase":
+        charset += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        break;
+      case "lowercase":
+        charset += "abcdefghijklmnopqrstuvwxyz";
+        break;
+      case "numbers":
+        charset += "0123456789";
+        break;
+      case "symbols":
+        charset += "!@#$%^*()-_=+[]{}?/|";
+        break;
+    }
+  });
+
+  if (charset.length === 0) {
+    console.log("Failed to generate password, no character sets selected.");
+    return;
+  }
+
+  await setCharset(charset);
+  let password = await genPass(length);
   await checkPasswordStrength(password);
   document.getElementById("newPassword").value = password.slice(1, -1);
 }

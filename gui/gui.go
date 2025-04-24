@@ -11,6 +11,7 @@ import (
 var DbContents string
 var DbFile string
 var DbPass string
+var PasswordCharset string
 
 func fetchDB(e webui.Event) string {
 	response := DbContents
@@ -28,8 +29,19 @@ func updateDB(e webui.Event) error {
 	return err
 }
 
+func setCharset(e webui.Event) error {
+	charset, err := webui.GetArg[string](e)
+	PasswordCharset = charset
+	if err != nil {
+		fmt.Println("Error updating character set: ", err)
+		return err
+	}
+	return err
+}
+
 func genPass(e webui.Event) string {
-	password, err := enc.GenerateSecurePassword(20)
+	length, err := webui.GetArg[int](e)
+	password, err := enc.GenerateSecurePassword(length, PasswordCharset)
 	if err != nil {
 		fmt.Println("Error generating password: ", err)
 		return ""
@@ -55,6 +67,7 @@ func StartGui() {
 	webui.Bind(w, "updateDB", updateDB)
 	webui.Bind(w, "genPass", genPass)
 	webui.Bind(w, "passStrn", passStrn)
+	webui.Bind(w, "setCharset", setCharset)
 	// Show frontend.
 	w.ShowBrowser("index.html", webui.Firefox)
 	// Wait until all windows get closed.

@@ -162,3 +162,36 @@ a {
 .generate-btn:hover {
   opacity: 1;
 }
+
+.toggle-btn {
+  margin-bottom: 20px;
+  background-color: #ad5a5a;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-btn.active {
+  background-color: #f95959;
+  color: white;
+  border-color: #f95959;
+}
+
+#passwordOptions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.passwordLength {
+  text-align: center;
+  border: none;
+  outline: none;
+  width: 50px;
+  height: 25px;
+  overflow: hidden;
+  padding: 4px;
+  border-radius: 4px;
+}
