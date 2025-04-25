@@ -40,7 +40,7 @@ func main() {
 		fmt.Print("Enter password: ")
 		passwordBytes, err := term.ReadPassword(int(syscall.Stdin))
 		if err != nil {
-			log.Fatal("Error reading password:", err)
+			log.Fatal("Error reading password: ", err)
 		}
 		fmt.Println()
 
@@ -82,14 +82,14 @@ func main() {
 		fmt.Print("Enter new password: ")
 		pass1, err := term.ReadPassword(int(syscall.Stdin))
 		if err != nil {
-			log.Fatal("Error reading password:", err)
+			log.Fatal("Error reading password: ", err)
 		}
 		fmt.Println()
 
 		fmt.Print("Confirm password: ")
 		pass2, err := term.ReadPassword(int(syscall.Stdin))
 		if err != nil {
-			log.Fatal("Error reading password:", err)
+			log.Fatal("Error reading password: ", err)
 		}
 		fmt.Println()
 

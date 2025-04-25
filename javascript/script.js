@@ -189,6 +189,7 @@ function renderEntries(entries) {
     details.className = "entry";
     const summary = document.createElement("summary");
     summary.textContent = entry.Title;
+    summary.innerHTML = `${entry.Title} <button class="copy-btn" onclick="copyPassword(${index}, this)">Copy Password</button>`;
 
     const content = `
             <p><strong>Username:</strong> ${entry.Username}</p>
@@ -204,6 +205,25 @@ function renderEntries(entries) {
 
     container.appendChild(details);
   });
+}
+
+/*
+function copyPassword(index) {
+  const password = allEntries[index].Password;
+  navigator.clipboard.writeText(password).then(() => {});
+}
+*/
+
+function copyPassword(index, btn) {
+  const password = allEntries[index].Password;
+  navigator.clipboard.writeText(password).then(() => {
+    const originalText = btn.textContent;
+    btn.textContent = "Copied!";
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.disabled = false;
+    }, 3000);
 }
 
 function filterEntries() {
