@@ -1,5 +1,6 @@
 let dbOpen = false;
 let allEntries = [];
+let filtered = [];
 let firstRun = true;
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -62,7 +63,7 @@ async function openDatabase() {
   document.getElementById("addEntrySection").classList.remove("hidden");
   document.getElementById("addEntrySection").classList.add("visible");
 
-  renderEntries(allEntries);
+  filterEntries();
 }
 
 function entriesToXML(entries) {
@@ -135,6 +136,10 @@ async function parseEntries(xmlString) {
   }
 
   allEntries = parsedEntries;
+  const query = document.getElementById("searchInput").value.toLowerCase();
+  filtered = allEntries
+    .map((entry, i) => ({ entry, index: i }))
+    .filter(({ entry }) => entry.Title.toLowerCase().includes(query));
 }
 
 function getText(parent, tag) {
@@ -151,7 +156,7 @@ function deleteEntry(index) {
   if (confirm("Are you sure you want to delete this entry?")) {
     allEntries.splice(index, 1);
     updateDatabase();
-    renderEntries(allEntries);
+    filterEntries();
   }
 }
 
@@ -167,7 +172,7 @@ function addEntry() {
 
   allEntries.push(newEntry);
   updateDatabase();
-  renderEntries(allEntries);
+  filterEntries();
 
   document.getElementById("newTitle").value = "";
   document.getElementById("newUsername").value = "";
@@ -184,12 +189,15 @@ function renderEntries(entries) {
   const container = document.getElementById("password-entries");
   container.innerHTML = ""; // Clear previous entries if any
 
-  entries.forEach((entry, index) => {
+  entries.forEach(({ entry, index }) => {
     const details = document.createElement("details");
     details.className = "entry";
+
     const summary = document.createElement("summary");
-    summary.textContent = entry.Title;
-    summary.innerHTML = `${entry.Title} <button class="copy-btn" onclick="copyPassword(${index}, this)">Copy Password</button>`;
+    summary.innerHTML = `
+      ${entry.Title}
+      <button class="copy-btn" onclick="copyPassword(${index}, this)">Copy Password</button>
+    `;
 
     const content = `
             <p><strong>Username:</strong> ${entry.Username}</p>
@@ -202,17 +210,9 @@ function renderEntries(entries) {
 
     details.appendChild(summary);
     details.innerHTML += content;
-
     container.appendChild(details);
   });
 }
-
-/*
-function copyPassword(index) {
-  const password = allEntries[index].Password;
-  navigator.clipboard.writeText(password).then(() => {});
-}
-*/
 
 function copyPassword(index, btn) {
   const password = allEntries[index].Password;
@@ -224,13 +224,14 @@ function copyPassword(index, btn) {
       btn.textContent = originalText;
       btn.disabled = false;
     }, 3000);
+  });
 }
 
 function filterEntries() {
   const query = document.getElementById("searchInput").value.toLowerCase();
-  const filtered = allEntries.filter((entry) =>
-    entry.Title.toLowerCase().includes(query),
-  );
+  filtered = allEntries
+    .map((entry, i) => ({ entry, index: i }))
+    .filter(({ entry }) => entry.Title.toLowerCase().includes(query));
   renderEntries(filtered);
 }
 
