@@ -81,7 +81,7 @@ func StartGui() {
 	webui.Bind(w, "passStrn", passStrn)
 	webui.Bind(w, "setCharset", setCharset)
 	// Show frontend.
-	w.ShowBrowser("index.html", webui.Firefox)
+	w.ShowBrowser("index.html", webui.AnyBrowser)
 	// Wait until all windows get closed.
 	webui.Wait()
 }
