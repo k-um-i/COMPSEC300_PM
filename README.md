@@ -56,8 +56,9 @@ go build -o himitsu.exe main.go
 ### Possible issues with building
 #### Requirements
 First of all make sure you have golang installed.\
-Note that compiling the program also requires a C-compiler since go-webui utilizes CGO.
+Note that compiling the program also requires a C-compiler since go-webui utilizes CGO.\
+The go-webui dependency must be installed separately as mentioned since go cannot automatically handle it correctly when building.
 #### invalid go version '1.24.1'
-If you run into the ```invalid go version '1.24.1': must match format 1.23``` when compiling, you can circumvent this error by manually modifying the 'go.mod' file in the project directory.\
+If you run into the ```invalid go version '1.24.1': must match format 1.23``` error when compiling, you can circumvent this error by manually modifying the 'go.mod' file in the project directory.\
 Manually change the go version inside go.mod from 1.24.1 to 1.24\
 "go 1.24.1" -> "go 1.24"
