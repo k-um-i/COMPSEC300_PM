@@ -1,5 +1,5 @@
 # Himiツ
-### A COMPEC300 Password Manager Project
+### A COMPSEC300 Password Manager Project
 # Usage
 ## Commands
 The password manager is launched by running the executable from the terminal with a specific command as an argument.\
