@@ -24,7 +24,7 @@ You can download one of the precompiled binaries from the 'Releases' section. Th
 - Binaries compiled on Windows 11
 - Binaries compiled on Archlinux
 
-To use binaries just extract the downloaded zip and run the executable from the commandline.\
+To use binaries just extract the downloaded zip and run the executable from the commandline.
 
 To get started, simply run the following command while in the program directory.
 ```
@@ -42,6 +42,7 @@ cd COMPSEC300_PM
 ```
 3. Install the go-webui dependency by following their instructions\
 https://github.com/webui-dev/go-webui
+
 
 5. Build the program
 - Linux:
