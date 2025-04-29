@@ -18,6 +18,8 @@ There are currently three available commands:
 ```
 ## GUI
 The commands 'create' and 'open' will open the password manager GUI. All actions related to managing the passwords inside a database are done through the GUI and they should be rather self-explanatory.
+
+The GUI requires a browser to be available on the system the program is being ran on in order to open.
 # Installation
 ## Precompiled
 You can download one of the precompiled binaries from the 'Releases' section. There are currently two binaries provided:
