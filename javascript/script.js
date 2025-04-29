@@ -66,7 +66,8 @@ async function openDatabase() {
   // Fetch and parse DB contents from backend if first run
   if (firstRun) {
     xmlString = await fetchDB();
-    xmlString = await decodeEscapedXml(xmlString);
+    xmlString = await decodeUnicodeEscapes(xmlString);
+    console.log(xmlString);
     await parseEntries(xmlString);
     firstRun = false;
   }
@@ -132,12 +133,12 @@ async function closeDatabase() {
   document.getElementById("addEntrySection").classList.add("hidden");
 }
 
-// Function for decoding escaped XML received from backend
-async function decodeEscapedXml(xmlString) {
-  decoded = xmlString
-    .replace(/\\u003c/g, "<")
-    .replace(/\\u003e/g, ">")
-    .replace(/\\n/g, "");
+// Function for decoding escaped characters received from the backend
+async function decodeUnicodeEscapes(str) {
+  decoded = str.replace(/\\u[\dA-Fa-f]{4}/g, (match) => {
+    return String.fromCharCode(parseInt(match.replace("\\u", ""), 16));
+  });
+  decoded = decoded.replace(/\\n/g, "");
   return decoded.slice(1, -1);
 }
 
