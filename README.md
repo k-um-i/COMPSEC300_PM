@@ -3,6 +3,10 @@
 ### 秘密 (himitsu)
 #### Noun, Na-adjective (keiyodoshi), Noun which may take the genitive case particle 'no'
 1. secret; secrecy; confidentiality; privacy​
+
+## Disclaimer
+This password manager was made as part of the COMPSEC300 Course and should not be considered an attempt at making feature full password manager intended for everyday use.
+
 # Usage
 ## Commands
 The password manager is launched by running the executable from the terminal with a specific command as an argument.\
