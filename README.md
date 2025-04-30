@@ -43,11 +43,11 @@ To get started, simply run the following command while in the program directory.
 ### Building the program from source should be easy and painless.
 1. Clone the repo
 ```
-git clone https://github.com/k-um-i/COMPSEC300_PM.git
+git clone https://github.com/k-um-i/himitsu.git
 ```
 2. Open the cloned folder
 ```
-cd COMPSEC300_PM
+cd himitsu
 ```
 3. Install the go-webui dependency by following their instructions\
 https://github.com/webui-dev/go-webui
