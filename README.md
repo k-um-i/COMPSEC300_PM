@@ -1,5 +1,8 @@
 # Himiツ
 ### A COMPSEC300 Password Manager Project
+### 秘密 (himitsu)
+#### Noun, Na-adjective (keiyodoshi), Noun which may take the genitive case particle 'no'
+1. secret; secrecy; confidentiality; privacy​
 # Usage
 ## Commands
 The password manager is launched by running the executable from the terminal with a specific command as an argument.\
