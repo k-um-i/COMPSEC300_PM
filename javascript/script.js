@@ -86,6 +86,7 @@ async function openDatabase() {
 
 // Function for converting entries to XML format
 function entriesToXML(entries) {
+  // escapeXML function to prevent XML injection into the database.
   const escapeXML = (str) =>
     str.replace(
       /[<>&'"]/g,
@@ -198,12 +199,12 @@ function deleteEntry(index) {
 function addEntry() {
   // Initialize new entry variable based on information provided
   const newEntry = {
-    Title: document.getElementById("newTitle").value,
-    Username: document.getElementById("newUsername").value,
-    Email: document.getElementById("newEmail").value,
-    Password: document.getElementById("newPassword").value,
-    URL: document.getElementById("newURL").value,
-    Notes: document.getElementById("newNotes").value,
+    Title: sanitizeInput(document.getElementById("newTitle").value),
+    Username: sanitizeInput(document.getElementById("newUsername").value),
+    Email: sanitizeInput(document.getElementById("newEmail").value),
+    Password: sanitizeInput(document.getElementById("newPassword").value),
+    URL: sanitizeInput(document.getElementById("newURL").value),
+    Notes: sanitizeInput(document.getElementById("newNotes").value),
   };
 
   if (newEntry.Title === "") {
@@ -226,6 +227,20 @@ function addEntry() {
   document.getElementById("strengthIndicator").style.width = "0%";
   document.getElementById("passwordStrengthLabel").textContent =
     "Password Entropy: 0";
+}
+
+// Function for sanitizing user input
+function sanitizeInput(str) {
+  return str.replace(/[<>&'"]/g, (match) => {
+    const sanitizeChars = {
+      "<": "&lt;",
+      ">": "&gt;",
+      "&": "&amp;",
+      "'": "&apos;",
+      '"': "&quot;",
+    };
+    return sanitizeChars[match];
+  });
 }
 
 // Function for rendering all password entries
