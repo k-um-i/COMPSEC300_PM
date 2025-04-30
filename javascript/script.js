@@ -206,6 +206,11 @@ function addEntry() {
     Notes: document.getElementById("newNotes").value,
   };
 
+  if (newEntry.Title === "") {
+    alert("Title is required when adding an entry.");
+    return;
+  }
+
   // Add new entry to allEntries and update database contents
   allEntries.push(newEntry);
   updateDatabase();
