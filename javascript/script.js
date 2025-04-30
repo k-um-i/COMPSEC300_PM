@@ -246,14 +246,25 @@ function renderEntries(entries) {
       <button class="copy-btn" onclick="copyPassword(${index}, this)">Copy Password</button>
     `;
 
-    const content = `
-            <p><strong>Username:</strong> ${entry.Username}</p>
-            <p><strong>Email:</strong> ${entry.Email}</p>
-            <p><strong>Password:</strong> ${entry.Password}</p>
-            <p><strong>URL:</strong> ${entry.URL}</p>
-            <p><strong>Notes:</strong> ${entry.Notes}</p>
-            <button onclick="deleteEntry(${index})">Delete Entry</button>
-          `;
+    // Add fields with content stored to the entry details.
+    let content = "";
+    if (entry.Username != "") {
+      content += `<p><strong>Username:</strong> ${entry.Username}</p>`;
+    }
+    if (entry.Email != "") {
+      content += `<p><strong>Email:</strong> ${entry.Email}</p>`;
+    }
+    if (entry.Password != "") {
+      content += `<p><strong>Password:</strong> ${entry.Password}</p>`;
+    }
+    if (entry.URL != "") {
+      content += `<p><strong>URL:</strong> ${entry.URL}</p>`;
+    }
+    if (entry.Notes != "") {
+      content += `<p><strong>Notes:</strong> ${entry.Notes}</p>`;
+    }
+    // Add 'Delete Entry' button.
+    content += `<button onclick="deleteEntry(${index})">Delete Entry</button>`;
 
     // Append summary to details and details to container
     details.appendChild(summary);
