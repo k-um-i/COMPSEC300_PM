@@ -4,11 +4,11 @@
 #### Noun, Na-adjective (keiyodoshi), Noun which may take the genitive case particle 'no'
 1. secret; secrecy; confidentiality; privacy​
 
-## Disclaimer
+### Disclaimer
 This password manager was made as part of the COMPSEC300 Course and should not be considered an attempt at making feature full password manager intended for everyday use.
 
 # Usage
-## Commands
+### Commands
 The password manager is launched by running the executable from the terminal with a specific command as an argument.\
 There are currently three available commands:
 - Create and open a new empty password database:
@@ -23,12 +23,14 @@ There are currently three available commands:
 ```
 ./himitsu passwd <filename>
 ```
-## GUI
+### GUI
 The commands 'create' and 'open' will open the password manager GUI. All actions related to managing the passwords inside a database are done through the GUI and they should be rather self-explanatory.
 
 The GUI requires a browser to be available on the system the program is being ran on in order to open.
 # Installation
+
 ## Precompiled
+
 You can download one of the precompiled binaries from the 'Releases' section. There are currently two binaries provided:
 - Binaries compiled on Windows 11
 - Binaries compiled on Archlinux
@@ -40,7 +42,9 @@ To get started, simply run the following command while in the program directory.
 ./himitsu create <filename>
 ```
 ## Building from source
-### Building the program from source should be easy and painless.
+
+Building the program from source should be easy and painless.
+
 1. Clone the repo
 ```
 git clone https://github.com/k-um-i/himitsu.git
