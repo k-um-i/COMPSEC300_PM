@@ -54,7 +54,8 @@ git clone https://github.com/k-um-i/himitsu.git
 cd himitsu
 ```
 3. Install the go-webui dependency by following their instructions\
-https://github.com/webui-dev/go-webui
+https://github.com/webui-dev/go-webui \
+\(Specifically the _As Go module_ section.\)
 
 
 5. Build the program
